@@ -9,7 +9,8 @@ const DB_URL = 'mongodb://127.0.0.1:27017/light-tech-test-db';
 // const https = require('https');
 // const fs = require('fs');
 const mongoose = require('mongoose');
-const Giraffe = require('./models/giraffe')
+const Giraffe = require('./models/giraffe');
+
 app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 mongoose
@@ -30,6 +31,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 require('./routes')(app);
 require('./routes/static')(app);
+
 if (process.env.NODE_ENV == 'production') {
     app.use('/', express.static(path.join(__dirname, '../client')));
     app.listen(PORT, () => {
@@ -40,8 +42,7 @@ if (process.env.NODE_ENV == 'production') {
     const config = require(path.join(__dirname, '../../webpack.config'));
     const compiler = webpack(config);
 
-    app
-        .use(require('webpack-dev-middleware')(compiler, {
+    app.use(require('webpack-dev-middleware')(compiler, {
             publicPath: config.output.publicPath,
             stats: 'errors-only'
         }));
@@ -54,6 +55,7 @@ if (process.env.NODE_ENV == 'production') {
     //     rejectUnauthorized: false
     // };
     // const server = https.createServer(options, app);
+    
     app.listen(PORT, () => {
         console.log(`Server listening port: ${PORT}`);
     })
