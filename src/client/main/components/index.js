@@ -1,12 +1,12 @@
 import React, { Suspense, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
-import UploadExample from './uploadExample';
-
+import UploadExample from './UploadExample';
+import styles from'./testSass.module.sass';
 function App() {
     
     return (
         <div>
-            <h1 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Let's start dev</h1>
+            <h1 className={styles.test}>modules</h1>
             <UploadExample/>
         </div>
     )

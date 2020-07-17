@@ -5,12 +5,19 @@ const path = require('path');
 
 
 const PORT = process.env.PORT ? process.env.PORT : 8080;
+const DB_URL = 'mongodb://127.0.0.1:27017/light-tech-test-db';
 // const https = require('https');
 // const fs = require('fs');
 const mongoose = require('mongoose');
+const Giraffe = require('./models/giraffe')
 app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:27017/light-tech-test-db', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
+mongoose
+.connect(DB_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+.then(
+    () => console.log('Database connected:', DB_URL),
+    err => console.log('Connection error:', err)
+)
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

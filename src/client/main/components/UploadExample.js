@@ -9,6 +9,7 @@ export default function UploadExample() {
         if (event.target.files.length === 0 || event.target.files == undefined) return
         setFiles(event.target.files)
     }
+    
     const sendFiles = async (event) => {
         let formData = new FormData()
         formData.append('file', files[0])
@@ -23,8 +24,12 @@ export default function UploadExample() {
     }
     return (
         <>
-            <label htmlFor="file">{files == undefined ? 'Choose file...' : files[0].name}<input type="file" accept="image/*" name="photo" id="file" hidden onChange={handleFileChange} /> </label>
-            <button onClick={sendFiles} disabled={files == undefined}>Upload</button>
+            <label htmlFor="file">{files === undefined ? 'Choose file...' : files[0].name}
+                <input type="file" accept="image/*" name="photo" id="file" hidden onChange={handleFileChange} />
+            </label>
+            <button onClick={sendFiles} disabled={files == undefined}>
+                Upload
+            </button>
         </>
     )
 }
