@@ -30,8 +30,8 @@ mongoose
 //             console.log(err);
 //         } else {
 //             for (i = 0; i < names.length; i++) {
-//                 console.log(names[i].name);
-//                 //drop the collection
+//                 // console.log(names[i]);
+//                 // drop the collection
 //                 mongoose.connection.db.dropCollection(names[i].name, function(err, res) {
 //                     console.log('Dropped');
 //                 })
@@ -80,8 +80,6 @@ if (process.env.NODE_ENV == 'production') {
     app.listen(PORT, () => {
         console.log(`Server listening port: ${PORT}`);
     })
-
-    Giraffe.syncIndexes()
 }
 module.exports = app
 

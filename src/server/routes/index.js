@@ -41,7 +41,7 @@ module.exports = (app) => {
             res.sendStatus(201)
         } catch (e) {
             res.sendStatus(500)
-            console.log(e.message);
+            // console.log(e.message);
         }
     })
 
@@ -49,6 +49,7 @@ module.exports = (app) => {
         try {
             const giraffes = await Giraffe.find()
             console.log(giraffes);
+            res.json(giraffes)
         } catch (e) {
             console.error(e)
             res.sendStatus(500)
@@ -56,13 +57,19 @@ module.exports = (app) => {
     })
 
     app.route('/api/giraffe/:id')
-        .get((req, res) => {
-            
+        .get(async (req, res) => {
+            try {
+                const giraffe = await Giraffe.findById(req.params.id)
+                res.json(giraffe)
+            } catch (e) {
+                res.sendStatus(500)
+            }
         })
         
         .put((req, res) => {
             
         })
+
         .delete((req, res) => {
             
         })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useHTTP } from '../../../../hooks/http.hook'
 import styles from './Giraffes.module.sass'
 
@@ -31,13 +31,18 @@ export const AddGiraffe = () => {
         } catch (e) { }
     }
 
-    const getGiragges = async () => {
-        // use Callback
+    const getGiragges = useCallback(async () => {
         try {
-            const data = await request('/api/giraffe', 'GET', null, {})
+            const data = await request('/api/giraffe', 'GET', null)
             console.log(data);
+            // setGiraffes(data)
         } catch (e) { }
-    }
+    }, [request])
+
+    // as ready
+    // useEffect(() => {
+    //     getGiragges()
+    // }, [getGiragges])
 
     const renderAddGiraffeForm = () => {
         return(
@@ -128,6 +133,7 @@ export const AddGiraffe = () => {
             >
                 get
             </button>
+            {/* if !loading && giraffes && <GiraffeCard />  */}
         </>
     )
 }
