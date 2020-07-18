@@ -1,37 +1,46 @@
 import React from 'react'
 import styles from './GiraffeCard.module.sass'
 
-export const GiraffeCard = () => {
+export const GiraffeCard = (props) => {
     const renderCharacter = () => {
+        const color = props.giraffe.color || '-'
+        const diet = props.giraffe.diet || '-'
+        const character = props.giraffe.character || '-'
         return(
-            <div>
-                color + diet + character
+            <div className={styles.charContainer}>
+                <span className={styles.param}>Цвет:<p>{color}</p></span>
+                <span className={styles.param}>Диета:<p>{diet}</p></span>
+                <span className={styles.param}>Характер:<p>{character}</p></span>
             </div>
         )
     }
 
     const renderParam = () => {
+        const sex = props.giraffe.sex || '-'
+        const weight = props.giraffe.weight || '-'
+        const height = props.giraffe.height || '-'
         return(
-            <div>
-                sex + w + h
+            <div className={styles.paramContainer}>
+                <p>{sex}</p>
+                <p>{weight}</p>
+                <p>{height}</p>
             </div>
         )
     }
 
     const renderGiraffeInfo = () => {
         return(
-            <section>
-                name
-                {renderParam()}
-                {renderCharacter()}
-            </section>
+            <div>
+                <p className={styles.name}>{props.giraffe.name}</p>
+            </div>
         )
     }    
 
     return(
         <article className={styles.giraffeCard}>
-            <img />
             {renderGiraffeInfo()}
+            {renderParam()}
+            {renderCharacter()}
         </article>
     )
 }
