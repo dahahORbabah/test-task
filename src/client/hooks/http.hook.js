@@ -8,8 +8,13 @@ export const useHTTP = () => {
         setLoading(true)
 
         try {
+            if (body) {
+                body = JSON.stringify(body)
+                console.log(body);
+                headers['Content-Type'] = 'application/json'
+            }
+
             const res = await fetch(url, { method, body, headers })
-            console.log(res)
             const data = await res.json()
 
             if (!res.ok) {

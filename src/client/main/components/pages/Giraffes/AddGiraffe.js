@@ -3,10 +3,14 @@ import { useHTTP } from '../../../../hooks/http.hook'
 import styles from './Giraffes.module.sass'
 
 export const AddGiraffe = () => {
-    const { request } = useHTTP()
+    const { loading, request } = useHTTP()
     const [form, setForm] = useState({
-        name: '', gender: '', weight: '', height: '', color: '', diet: '', character: ''
+        name: '', 
+        // gender: '', weight: '', height: '', color: '', diet: '', character: ''
     })
+    // const [giragges, setGiraffes] = useState(
+    //     [{ name: '', gender: '', weight: '', height: '', color: '', diet: '', character: '' }]
+    // )
 
     const changeHandler = (event) => {
         setForm({
@@ -21,28 +25,24 @@ export const AddGiraffe = () => {
     }
 
     const saveHandler = async () => {
-        console.log('save giragge');
-        console.log(form);
         try {
             const data = await request('/api/giraffe', 'POST', {...form})
-            console.log(data);
-        } catch (e) { 
-            console.error(e);
-        }
+            console.log('Giraffe', data);
+        } catch (e) { }
     }
 
     const getGiragges = async () => {
+        // use Callback
         try {
             const data = await request('/api/giraffe', 'GET', null, {})
-        } catch (e) { 
-            console.error(e) 
-        }
+            console.log(data);
+        } catch (e) { }
     }
 
     const renderAddGiraffeForm = () => {
         return(
             <div className={styles.formWrapper}>
-                <input type='file' />
+                {/* <input type='file' /> */}
                 <input
                     id='name' 
                     type='text' 
@@ -51,7 +51,7 @@ export const AddGiraffe = () => {
                     value={form.name}
                     onChange={changeHandler}
                 />
-                <input
+                {/* <input
                     id='gender' 
                     type='text' 
                     placeholder='-'
@@ -98,8 +98,11 @@ export const AddGiraffe = () => {
                     name='character'
                     value={form.character}
                     onChange={changeHandler}
-                />
-                <button onClick={saveHandler}>
+                /> */}
+                <button 
+                    onClick={saveHandler}
+                    disabled={loading}
+                >
                     Сохранить
                 </button>
             </div>
@@ -110,11 +113,21 @@ export const AddGiraffe = () => {
         <>
             <div className={styles.addGiraffeContainer}>
                 <p className={styles.title}>Жирафы</p>
-                <button onClick={addHandler}>add G</button>
+                <button 
+                    onClick={addHandler}
+                    disabled={loading}
+                >
+                    add G
+                </button>
             </div>
             {/* make dynamic with redux */}
             {renderAddGiraffeForm()}
-            <button onClick={getGiragges}>get</button>
+            <button 
+                onClick={getGiragges}
+                disabled={loading}
+            >
+                get
+            </button>
         </>
     )
 }

@@ -1,7 +1,7 @@
 const multer = require('multer')
 const Giraffe = require('../models/giraffe')
 const path = require('path')
-const { check, validationResults } = require('express-validator')
+// const { check, validationResults } = require('express-validator')
 const storage = multer.diskStorage({
     destination: './uploads/' /* relative to root dir of project */,
     filename: function (req, file, cb) {
@@ -24,34 +24,24 @@ module.exports = (app) => {
     // Giraffe API
     app.post(
         '/api/giraffe',
-        [
-            check('name', 'Field is not correct').exists(),
-            // check('weight', 'Field is not correct').isLength({ min: 3 }),
-            // check('sex', 'Field is not correct').isLength({ min: 1, max: 1 }),
-            // check('height', 'Field is not correct').isLength({ min: 1 }),
-            // check('color', 'Field is not correct').isLength({ min: 1 }),
-            // check('diet', 'Field is not correct').isLength({ min: 1 }),
-            // check('temper', 'Field is not correct').isLength({ min: 1 }),
-            // check('image', 'Field is not correct').isLength({ min: 1 })
-        ],
         async (req, res) => {
         try {
+            console.log('Body', req.body);
             const { name, weight, sex, height, color, diet, temper } = req.body
             const existed = await Giraffe.findOne({ name })
 
             if (existed){
-                console.log(existed);
                 return res.sendStatus(400)
             }
 
             const giraffe = new Giraffe({ name, weight, sex, height, color, diet, temper })
-            console.log(giraffe);
+            console.log('Giraffe', giraffe);
 
             await giraffe.save()
             res.sendStatus(201)
         } catch (e) {
-            console.error(e)
             res.sendStatus(500)
+            console.log(e.message);
         }
     })
 

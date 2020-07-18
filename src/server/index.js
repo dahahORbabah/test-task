@@ -23,6 +23,23 @@ mongoose
     err => console.log('Connection error:', err)
 )
 
+// mongoose.connection.once('open', function() {
+//     console.log('ok');
+//     mongoose.connection.db.listCollections().toArray(function(err, names) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             for (i = 0; i < names.length; i++) {
+//                 console.log(names[i].name);
+//                 //drop the collection
+//                 mongoose.connection.db.dropCollection(names[i].name, function(err, res) {
+//                     console.log('Dropped');
+//                 })
+//             }
+//         }
+//     })
+// })
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -63,6 +80,8 @@ if (process.env.NODE_ENV == 'production') {
     app.listen(PORT, () => {
         console.log(`Server listening port: ${PORT}`);
     })
+
+    Giraffe.syncIndexes()
 }
 module.exports = app
 
