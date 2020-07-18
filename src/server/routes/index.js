@@ -33,24 +33,34 @@ module.exports = (app) => {
             // check('diet', 'Field is not correct').isLength({ min: 1 }),
             // check('temper', 'Field is not correct').isLength({ min: 1 }),
             // check('image', 'Field is not correct').isLength({ min: 1 })
-        ] ,
+        ],
         async (req, res) => {
         try {
-            const { name, weight, sex, height, color, diet, temper, image } = req.body
+            const { name, weight, sex, height, color, diet, temper } = req.body
             const existed = await Giraffe.findOne({ name })
 
             if (existed){
-                return res.status(400).json({ message: 'Giraffe already have existed' })
+                console.log(existed);
+                return res.sendStatus(400)
             }
 
-            const giraffe = new Giraffe({ name, weight, sex, height, color, diet, temper, image })
-            console.log(req.body)
-            console.log(giraffe)
+            const giraffe = new Giraffe({ name, weight, sex, height, color, diet, temper })
+            console.log(giraffe);
 
             await giraffe.save()
             res.sendStatus(201)
+        } catch (e) {
+            console.error(e)
+            res.sendStatus(500)
+        }
+    })
 
-        } catch (err) {
+    app.get('/api/giraffe', async (req, res) => {
+        try {
+            const giraffes = await Giraffe.find()
+            console.log(giraffes);
+        } catch (e) {
+            console.error(e)
             res.sendStatus(500)
         }
     })

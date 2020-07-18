@@ -9,6 +9,7 @@ export const useHTTP = () => {
 
         try {
             const res = await fetch(url, { method, body, headers })
+            console.log(res)
             const data = await res.json()
 
             if (!res.ok) {
@@ -16,12 +17,11 @@ export const useHTTP = () => {
             }
 
             setLoading(false)
-
             return data
         } catch (e) {
-             setLoading(false)
-             setError(e.message)
-             throw e
+            setLoading(false)
+            setError(e.message)
+            throw e
         }
     }, [])
 

@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@hot-loader/react-dom": "^16.13.0",
-    "axios": "^0.19.2",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",

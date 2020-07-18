@@ -2,18 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const GiraffeSchema = new Schema({
-    name: { type: String, required: true, unique: true },
-    weight: { type: Number, required: true },
-    sex: { type: String, required: true },
-    height: { type: Number, required: true },
-    color: { type: String, required: true },
-    diet: { type: String, required: true },
-    temper: { type: String, required: true },
-    image: { type: String, required: true, unique: true }
+    name: { type: String, required: false, unique: true },
+    weight: { type: Number, required: false },
+    sex: { type: String, required: false },
+    height: { type: Number, required: false },
+    color: { type: String, required: false },
+    diet: { type: String, required: false },
+    temper: { type: String, required: false },
+    // image: { type: String, required: true, unique: true }
 })
 
-const Giraffe = mongoose.model('giraffe', GiraffeSchema)
-
-module.exports = {
-    Giraffe
-}
+module.exports = mongoose.model('giraffe', GiraffeSchema)
