@@ -7,7 +7,7 @@ export const ManageCard = ({id}) => {
 
     const editGiraffe = () => {
         if (!dialog.editable) {
-            setEditable(true)
+            setEditable(id)
             hideManageWindow(id)
         }
     }

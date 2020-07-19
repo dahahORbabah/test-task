@@ -1,15 +1,16 @@
 @import 'variables'
 
 .container
-    position: relative //or relative
-    // left: 188px
-    // bottom: 460px
+    position: relative 
+    top: 25px
+    left: 170px
     background-color: $clr-base-green
     color: $clr-white
     border-radius: 20px
     max-width: 174px
     padding: 15px 13px
     padding-left: 10px
+    min-height: 94px
 
 .item 
     background-color: $clr-base-green
@@ -23,6 +24,11 @@
     &:hover
         background-color: $clr-green
         cursor: pointer
+
+    &:focus
+        background-color: $clr-green
+        cursor: pointer
+        outline: none
 
 .itemText
     color: $clr-white
