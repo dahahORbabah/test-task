@@ -10,6 +10,7 @@ export const GiraffesList = () => {
         // gender: '', weight: '', height: '', color: '', diet: '', character: '' 
     }]) 
 
+    //context
     const getGiragges = useCallback(async () => {
         try {
             const data = await request('/api/giraffe', 'GET', null)
@@ -25,9 +26,13 @@ export const GiraffesList = () => {
 
     if (!loading && giraffes) {
         return (
-            giraffes.map((giraffe, index) => 
-                <GiraffeCard key={index} giraffe={giraffe} />
-            )
+            <ul className={styles.giraffeListContainer}>
+                {giraffes.map((giraffe, index) => 
+                    <li className={styles.giraffeCardWrapper} key={index}>
+                        <GiraffeCard key={index} giraffe={giraffe} />
+                    </li>
+                )}
+            </ul>
         )
     } else return 'empty list'
 }
