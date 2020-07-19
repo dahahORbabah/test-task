@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 
 export const useHTTP = () => {
-    const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
@@ -10,7 +9,6 @@ export const useHTTP = () => {
         try {
             if (body) {
                 body = JSON.stringify(body)
-                console.log(body);
                 headers['Content-Type'] = 'application/json'
             }
 
@@ -25,12 +23,9 @@ export const useHTTP = () => {
             return data
         } catch (e) {
             setLoading(false)
-            setError(e.message)
             throw e
         }
     }, [])
 
-    const clearError = () => setError(null)
-
-    return { error, loading, request, clearError }
+    return { loading, request }
 }

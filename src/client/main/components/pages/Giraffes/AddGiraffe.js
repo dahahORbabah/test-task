@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHTTP } from '../../../../hooks/http.hook'
 import styles from './Giraffes.module.sass'
-import { ManageCard } from '../../uui/Card/ManageCard/ManageCard'
 
 export const AddGiraffe = () => {
     const { loading, request } = useHTTP()
@@ -115,7 +114,6 @@ export const AddGiraffe = () => {
             </div>
             {/* make dynamic */}
             {/* {renderAddGiraffeForm()} */}
-            <ManageCard />
         </>
     )
 }

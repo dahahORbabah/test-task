@@ -1,48 +1,67 @@
 @import 'variables'
 
+input
+    background-color: transparent
+    max-width: 100px
+
+.short
+    max-width: 30px
+    text-transform: uppercase
+    font-weight: bold
+    font-size: $fs-16
+    line-height: 19px
+    text-align: center
+
 .giraffeCard
     border-radius: $br-card
     background-color: $clr-beige
-    padding: 0 24px
+    padding: 0 23px
+    max-width: 236px
+
+    &:hover
+        box-shadow: 0px 4px 15px $clr-shadow
 
 .name
-    display: flex
-    justify-content: center
+    align-self: center
     color: $clr-dark-green
     font-weight: bold
     font-size: $fs-22
     line-height: 26px
+    text-align: center
 
 .paramContainer
     display: flex
     justify-content: space-between
     color: $clr-dark
     background-color: $clr-dark-beige
-    text-transform: uppercase
-    font-weight: bold
-    font-size: $fs-16
-    line-height: 19px
     border-radius: 58px
-    padding: 10px 25px
+    padding: 10px 16px
     min-width: 189px
 
 .charContainer
+    display: flex
+    flex-direction: column
+    padding: 0 9px
     padding-top: 22px
     padding-bottom: 18px
 
 .param
-    display: flex
     color: $clr-dark-green
     font-size: $fs-15
-    font-weight: bold
-    line-height: 18px
+    font-weight: bold    
     padding-bottom: 19px
 
-    p
+    input
+        font-size: $fs-15
         padding-left: 3px
         font-weight: normal
         color: $clr-dark
         text-transform: capitalize
+        line-height: 18px
+
+.info
+    display: flex
+    flex-direction: column
 
 .manageMenu
     display: flex
@@ -61,3 +80,16 @@
 
 .manageMenuBtn
     background-color: transparent
+    cursor: pointer
+
+.saveBtn
+    align-self: center
+    background-color: $clr-green
+    color: $clr-white
+    border-radius: 33px
+    padding: 10px 24px
+    line-height: 19px
+    font-size: $fs-16
+    font-weight: 500
+    text-align: center
+    max-width: 129px
