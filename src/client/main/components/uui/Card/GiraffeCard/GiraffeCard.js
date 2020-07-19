@@ -3,16 +3,17 @@ import styles from './GiraffeCard.module.sass'
 import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import { ManageCard } from '../ManageCard/ManageCard'
 
-export const GiraffeCard = ({giraffe}) => {    
+export const GiraffeCard = ({id, giraffe}) => {    
     const { showManageWindow, hideManageWindow, dialog } = useContext(DialogContext)
-    const [visible, setVisible] = useState(false)
+    const [_giraffe, setGiraffe] = useState({
+        name: giraffe.name, sex: giraffe.sex, weight: giraffe.weight, height: giraffe.height, color: giraffe.color, diet: giraffe.dialog, character: giraffe.character
+    })
 
     const changeHandler = (event) => {
-        // setForm({
-        //     ...form,
-        //     [event.target.name]: event.target.value
-        // })
-        console.log('changed');
+        setGiraffe({
+            ..._giraffe,
+            [event.target.name]: event.target.value
+        })
     }
 
     const renderCharacter = () => {
@@ -24,7 +25,7 @@ export const GiraffeCard = ({giraffe}) => {
                 <span className={styles.param}>Цвет:<input value={color}/></span>
                 <span className={styles.param}>Диета:<input value={diet}/></span>
                 <span className={styles.param}>Характер:<input value={character}/></span>
-                {visible && <button className={styles.saveBtn}>Сохранить</button>}
+                {dialog.editable && dialog.id === id && <button className={styles.saveBtn}>Сохранить</button>}
             </div>
         )
     }
@@ -69,13 +70,11 @@ export const GiraffeCard = ({giraffe}) => {
         )
     }
 
-    const toggleManage = (name) => {
-        if (visible) {
-            hideManageWindow()
-            setVisible(false)
+    const toggleManage = () => {
+        if (dialog.visible && dialog.id == id) {
+            hideManageWindow(id)
         } else {
-            showManageWindow()
-            setVisible(true)
+            showManageWindow(id)
         }
     }
 
@@ -83,8 +82,11 @@ export const GiraffeCard = ({giraffe}) => {
         return(
             <div className={styles.info}>
                 <div className={styles.manageMenu}>
-                    {visible && <ManageCard />} 
-                    <button className={styles.manageMenuBtn} onClick={() => toggleManage(giraffe.name)}>
+                    {dialog.visible && dialog.id == id && <ManageCard id={id} />} 
+                    <button 
+                        className={styles.manageMenuBtn} 
+                        onClick={() => toggleManage()}
+                    >
                         <svg width="18" height="6" viewBox="0 0 18 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10.793 1.45703C11.2852 1.94922 11.5312 2.54688 11.5312 3.25C11.5312 3.95312 11.2852 4.55078 10.793 5.04297C10.3008 5.53516 9.70312 5.78125 9 5.78125C8.29688 5.78125 7.69922 5.53516 7.20703 5.04297C6.71484 4.55078 6.46875 3.95312 6.46875 3.25C6.46875 2.54688 6.71484 1.94922 7.20703 1.45703C7.69922 0.964844 8.29688 0.71875 9 0.71875C9.70312 0.71875 10.3008 0.964844 10.793 1.45703ZM13.3945 1.45703C13.8867 0.964844 14.4844 0.71875 15.1875 0.71875C15.8906 0.71875 16.4883 0.964844 16.9805 1.45703C17.4727 1.94922 17.7188 2.54688 17.7188 3.25C17.7188 3.95312 17.4727 4.55078 16.9805 5.04297C16.4883 5.53516 15.8906 5.78125 15.1875 5.78125C14.4844 5.78125 13.8867 5.53516 13.3945 5.04297C12.9023 4.55078 12.6562 3.95312 12.6562 3.25C12.6562 2.54688 12.9023 1.94922 13.3945 1.45703ZM1.01953 1.45703C1.51172 0.964844 2.10938 0.71875 2.8125 0.71875C3.51562 0.71875 4.11328 0.964844 4.60547 1.45703C5.09766 1.94922 5.34375 2.54688 5.34375 3.25C5.34375 3.95312 5.09766 4.55078 4.60547 5.04297C4.11328 5.53516 3.51562 5.78125 2.8125 5.78125C2.10938 5.78125 1.51172 5.53516 1.01953 5.04297C0.527344 4.55078 0.28125 3.95312 0.28125 3.25C0.28125 2.54688 0.527344 1.94922 1.01953 1.45703Z" fill="#435F40"/>
                         </svg>
@@ -95,7 +97,13 @@ export const GiraffeCard = ({giraffe}) => {
                         ?   renderGiraffeImg()
                         :   renderMockImg()}
                 </div>
-                <input className={styles.name} value={giraffe.name} onChange={changeHandler}/>
+                <input 
+                    className={styles.name} 
+                    name='name' 
+                    value={_giraffe.name} 
+                    onChange={changeHandler}
+                    disabled={!dialog.editable || dialog.id !== id}
+                />
             </div>
         )
     }    
@@ -103,7 +111,6 @@ export const GiraffeCard = ({giraffe}) => {
     return(
         <>
             <article className={styles.giraffeCard}>
-                {/* {visible && <ManageCard />}         */}
                 {renderGiraffeInfo()}
                 {renderParam()}
                 {renderCharacter()}

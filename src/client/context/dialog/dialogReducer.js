@@ -1,14 +1,15 @@
-import { SHOW_MANAGE_WINDOW, HIDE_MANAGE_WINDOW } from '../types'
+import { SHOW_MANAGE_WINDOW, HIDE_MANAGE_WINDOW, EDIT_GIRAFFE } from '../types'
 
 const handlers = {
-    [SHOW_MANAGE_WINDOW]: state => ({...state, visible: true}),
-    [HIDE_MANAGE_WINDOW]: state => ({...state, visible: false}),
+    [SHOW_MANAGE_WINDOW]: (state, {payload}) => ({...state, visible: true, id: payload }),
+    [HIDE_MANAGE_WINDOW]: (state, {payload}) => ({...state, visible: false, id: payload}),
+    [EDIT_GIRAFFE]: (state, {payload}) => ({...state, visible: false, editable: true, id: payload}),
     DEFAULT: state => state
 }
 
 export const dialogReducer = (state, action) => {
     const handle = handlers[action.type] || handlers.DEFAULT
-    console.log(state);
-    console.log(action.type);
+    // console.log(state);
+    // console.log(action.type);
     return handle(state, action)
 }

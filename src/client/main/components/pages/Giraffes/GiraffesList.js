@@ -29,7 +29,7 @@ export const GiraffesList = () => {
             <ul className={styles.giraffeListContainer}>
                 {giraffes.map((giraffe, index) => 
                     <li className={styles.giraffeCardWrapper} key={index}>
-                        <GiraffeCard key={index} giraffe={giraffe} />
+                        <GiraffeCard id={index} giraffe={giraffe} />
                     </li>
                 )}
             </ul>

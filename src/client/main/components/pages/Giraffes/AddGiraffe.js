@@ -5,8 +5,7 @@ import styles from './Giraffes.module.sass'
 export const AddGiraffe = () => {
     const { loading, request } = useHTTP()
     const [form, setForm] = useState({
-        name: '', 
-        // gender: '', weight: '', height: '', color: '', diet: '', character: ''
+        name: '', sex: '', weight: '', height: '', color: '', diet: '', character: ''
     })
 
     const changeHandler = (event) => {
@@ -40,11 +39,11 @@ export const AddGiraffe = () => {
                     onChange={changeHandler}
                 />
                 {/* <input
-                    id='gender' 
+                    id='sex' 
                     type='text' 
                     placeholder='-'
-                    name='gender'
-                    value={form.gender}
+                    name='sex'
+                    value={form.sex}
                     onChange={changeHandler}
                 />
                 <input
