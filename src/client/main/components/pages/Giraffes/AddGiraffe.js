@@ -5,20 +5,10 @@ import { GiraffesContext } from '../../../../context/giraffes/giraffesContext'
 
 export const AddGiraffe = () => {
     const { loading } = useHTTP()
-    const { giraffes } = useContext(GiraffesContext)
-    const [form, setForm] = useState({
-        name: '', sex: '', weight: '', height: '', color: '', diet: '', character: ''
-    })
+    const { showNewForm } = useContext(GiraffesContext)
 
-    const changeHandler = (event) => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const openCardHandler = () => {        
-        console.log(giraffes);
+    const openCardHandler = () => {   
+        showNewForm()
     }
 
     return(
@@ -27,7 +17,7 @@ export const AddGiraffe = () => {
                 <p className={styles.title}>Жирафы</p>
                 <button
                     className={styles.addBtn} 
-                    onClick={openCardHandler}
+                    onClick={() => openCardHandler()}
                     disabled={loading}
                 >
                     <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,8 +26,6 @@ export const AddGiraffe = () => {
                     </svg>
                 </button>
             </div>
-            {/* make dynamic */}
-            {/* {renderAddGiraffeForm()} */}
         </>
     )
 }

@@ -18,7 +18,8 @@ export const DialogState = ({children}) => {
 
     return(
         <DialogContext.Provider 
-            value={{showManageWindow, hideManageWindow, setEditable, setNotEditable, dialog: state}}>
+            value={{showManageWindow, hideManageWindow, setEditable, setNotEditable, 
+            dialog: state}}>
             {children}
         </DialogContext.Provider>
     )

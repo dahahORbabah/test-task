@@ -9,3 +9,6 @@ export const HIDE_MANAGE_WINDOW = 'HIDE_MANAGE_WINDOW'
 export const SET_NOT_EDITABLE = 'SET_NOT_EDITABLE'
 export const SET_EDITABLE = 'SET_EDITABLE'
 
+export const SHOW_NEW_FORM = 'SHOW_NEW_FORM'
+export const HIDE_NEW_FORM = 'HIDE_NEW_FORM'
+

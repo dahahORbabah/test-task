@@ -9,7 +9,6 @@ li
     margin: 12px 0 
     margin-right: 13px
     padding-left: 51px
-    padding-right: 40px
     border-radius: 25px
     width: 83%
 
@@ -27,6 +26,10 @@ li
 
 .giraffeListContainer
     display: flex
+    overflow-x: auto
+
+    &::-webkit-scrollbar
+        display: none 
 
 .formWrapper
     display: flex
@@ -42,3 +45,8 @@ li
 
 .giraffeCardWrapper
     margin-right: 33px
+    margin-bottom: 20px
+    margin-top: 10px
+
+    &:first-child
+        margin-left: 10px

@@ -4,14 +4,14 @@ import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import { ManageCard } from '../ManageCard/ManageCard'
 import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
 
-export const GiraffeCard = ({id, giraffe}) => {    
+export const GiraffeCard = ({giraffe}) => {    
     const { showManageWindow, hideManageWindow, dialog, setNotEditable } = useContext(DialogContext)
-    const { addGiraffe, updateGiraffe } = useContext(GiraffesContext)
+    const { addGiraffe, updateGiraffe, visible, hideNewForm } = useContext(GiraffesContext)
+    // const [files, setFiles] = useState()
     const [_giraffe, setGiraffe] = useState({
         name: giraffe.name, sex: giraffe.sex, weight: giraffe.weight, height: giraffe.height, 
         color: giraffe.color, diet: giraffe.dialog, character: giraffe.character
     })
-    const [files, setFiles] = useState()
 
     const changeHandler = (event) => {
         setGiraffe({
@@ -38,8 +38,14 @@ export const GiraffeCard = ({id, giraffe}) => {
     }
 
     const saveChanges = () => {
-        setNotEditable(id)
-        updateGiraffe(giraffe._id, _giraffe)
+        setNotEditable(giraffe._id)
+
+        if (visible) {
+            addGiraffe(_giraffe)
+            hideNewForm()
+        } else {
+            updateGiraffe(giraffe._id, _giraffe)
+        }
     }
 
     const handleUpload = (event) => {
@@ -48,39 +54,39 @@ export const GiraffeCard = ({id, giraffe}) => {
     }
 
     const renderCharacter = () => {
-        const color = _giraffe.color 
-        const diet = _giraffe.diet 
-        const character = _giraffe.character 
         return(
             <div className={styles.charContainer}>
                 <span className={styles.param}>Цвет:
                     <input 
                         name='color' 
-                        value={color} 
+                        value={_giraffe.color} 
                         onChange={changeHandler} 
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
+                        placeholder=''
                     />
                 </span>
                 <span className={styles.param}>Диета:
                     <input 
                         name='diet' 
-                        value={diet} 
+                        value={_giraffe.diet} 
                         onChange={changeHandler} 
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
+                        placeholder=''
                     />
                 </span>
                 <span className={styles.param}>Характер:
                     <input 
                         name='character' 
-                        value={character} 
+                        value={_giraffe.character} 
                         onChange={changeHandler} 
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
+                        placeholder=''
                     />
                 </span>
-                {dialog.editable && dialog.id === id && renderSaveBtn()}
+                {dialog.id === giraffe._id && dialog.editable && renderSaveBtn()}
             </div>
         )
     }
@@ -90,7 +96,7 @@ export const GiraffeCard = ({id, giraffe}) => {
             <button 
                 className={isFilled(_giraffe) ? styles.saveBtn : styles.saveBtnDisable} 
                 onClick={() => saveChanges()}
-                // disabled={!isFilled(_giraffe)}
+                disabled={!isFilled(_giraffe)}
             >
                 Сохранить
             </button>
@@ -117,7 +123,7 @@ export const GiraffeCard = ({id, giraffe}) => {
                         name='sex' 
                         value={sex}
                         onChange={changeHandler}
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         placeholder='-'
                         autoComplete='off'
                     />
@@ -126,7 +132,7 @@ export const GiraffeCard = ({id, giraffe}) => {
                         name='weight' 
                         value={weight}
                         onChange={changeHandler}
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         placeholder='-'
                         autoComplete='off'
                     />
@@ -135,7 +141,7 @@ export const GiraffeCard = ({id, giraffe}) => {
                         name='height' 
                         value={height}
                         onChange={changeHandler}
-                        disabled={!dialog.editable || dialog.id !== id}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                         placeholder='-'
                         autoComplete='off'
                     />
@@ -171,18 +177,19 @@ export const GiraffeCard = ({id, giraffe}) => {
     }
 
     const toggleManage = () => {
-        if (dialog.visible && dialog.id == id) {
-            hideManageWindow(id)
+        if (dialog.visible) {
+            hideManageWindow(giraffe._id)
         } else {
-            showManageWindow(id)
-        }
+            showManageWindow(giraffe._id)
+        }  
     }
 
     const renderGiraffeInfo = () => {
+        const name = _giraffe.name || ''
         return(
             <div className={styles.info}>
                 <div className={styles.manageMenu}>
-                    {dialog.visible && dialog.id == id && <ManageCard id={id} giraffeId={giraffe._id} />} 
+                    {dialog.visible && dialog.id == giraffe._id && <ManageCard id={giraffe._id} />} 
                     <button 
                         className={styles.manageMenuBtn} 
                         onClick={() => toggleManage()}
@@ -200,9 +207,9 @@ export const GiraffeCard = ({id, giraffe}) => {
                 <input 
                     className={styles.name} 
                     name='name' 
-                    value={_giraffe.name} 
+                    value={name} 
                     onChange={changeHandler}
-                    disabled={!dialog.editable || dialog.id !== id}
+                    disabled={!dialog.editable || dialog.id !== giraffe._id}
                     autoComplete='off'
                 />
             </div>
@@ -210,12 +217,10 @@ export const GiraffeCard = ({id, giraffe}) => {
     }    
 
     return(
-        <>
-            <article className={styles.giraffeCard}>
-                {renderGiraffeInfo()}
-                {renderParam()}
-                {renderCharacter()}
-            </article>
-        </>
+        <article className={styles.giraffeCard}>
+            {renderGiraffeInfo()}
+            {renderParam()}
+            {renderCharacter()}
+        </article>
     )
 }

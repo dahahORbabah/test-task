@@ -3,9 +3,9 @@ import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import styles from './ManageCard.module.sass'
 import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
 
-export const ManageCard = ({id, giraffeId}) => {
+export const ManageCard = ({id}) => {
     const { setEditable, hideManageWindow, dialog } = useContext(DialogContext)
-    const { removeGiraffe, fetchGiraffes } = useContext(GiraffesContext)
+    const { removeGiraffe } = useContext(GiraffesContext)
 
     const editGiraffe = () => {
         if (!dialog.editable) {
@@ -15,8 +15,7 @@ export const ManageCard = ({id, giraffeId}) => {
     }
 
     const deleteGiraffe = () => {
-        removeGiraffe(giraffeId)
-        fetchGiraffes()
+        removeGiraffe(id)
     }
 
     return(

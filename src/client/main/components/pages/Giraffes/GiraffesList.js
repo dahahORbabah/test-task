@@ -6,22 +6,30 @@ import { GiraffesContext } from '../../../../context/giraffes/giraffesContext'
 
 export const GiraffesList = () => {
     const { loading } = useHTTP()
-    const { fetchGiraffes, giraffes } = useContext(GiraffesContext)
+    const { fetchGiraffes, giraffes, visible } = useContext(GiraffesContext)
 
     useEffect(() => {
         fetchGiraffes()
     }, [])
 
+    const newGiraffeForm = () => {
+        return(
+            <li className={styles.giraffeCardWrapper} key={'newGiraffe'}>
+                <GiraffeCard id={'newGiraffe'} giraffe={{}} />
+            </li>
+        )
+    }
+
     if (!loading && giraffes) {
-        console.log(giraffes);
         return (
             <ul className={styles.giraffeListContainer}>
-                {giraffes.map((giraffe, index) => 
-                    <li className={styles.giraffeCardWrapper} key={index}>
-                        <GiraffeCard id={index} giraffe={giraffe} />
+                {visible && newGiraffeForm()}
+                {giraffes.map((giraffe) => 
+                    <li className={styles.giraffeCardWrapper} key={giraffe._id}>
+                        <GiraffeCard giraffe={giraffe} />
                     </li>
                 )}
             </ul>
         )
-    } else return 'empty list'
+    } else return null
 }
