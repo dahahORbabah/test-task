@@ -1,9 +1,8 @@
 import React, { useReducer } from 'react'
-import { ADD_GIRAFFE, FETCH_GIRAFFES, EDIT_GIRAFFE } from '../types'
+import { ADD_GIRAFFE, FETCH_GIRAFFES, EDIT_GIRAFFE, REMOVE_GIRAFFE } from '../types'
 import axios from 'axios'
 import { giraffesReducer } from './giraffesReducer'
 import { GiraffesContext } from './giraffesContext'
-import giraffe from '../../../server/models/giraffe'
 
 export const GiraffesState = ({children}) => {
     const initialState = {
@@ -40,9 +39,17 @@ export const GiraffesState = ({children}) => {
                 id: res.data.id
             }
 
-            console.log(payload);
-
             dispatch({type: EDIT_GIRAFFE, payload})
+        } catch (e) {
+            throw new Error(e.message)
+        }
+    }
+
+    const removeGiraffe = async (id) => {
+        try {
+            await axios.delete(`/api/giraffe/${id}`)
+
+            dispatch({type: REMOVE_GIRAFFE, payload: id})
         } catch (e) {
             throw new Error(e.message)
         }
@@ -50,7 +57,7 @@ export const GiraffesState = ({children}) => {
 
     return(
         <GiraffesContext.Provider value={{
-            addGiraffe, fetchGiraffes, updateGiraffe,
+            addGiraffe, fetchGiraffes, updateGiraffe, removeGiraffe,
             giraffes: state.giraffes
         }}>
             {children}

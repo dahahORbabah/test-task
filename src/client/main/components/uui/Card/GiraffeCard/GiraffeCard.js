@@ -38,11 +38,8 @@ export const GiraffeCard = ({id, giraffe}) => {
     }
 
     const saveChanges = () => {
-        // console.log(giraffe._id);
-        // console.log(_giraffe);
         setNotEditable(id)
         updateGiraffe(giraffe._id, _giraffe)
-        // console.log(giraffe);
     }
 
     const handleUpload = (event) => {
@@ -83,15 +80,20 @@ export const GiraffeCard = ({id, giraffe}) => {
                         autoComplete='off'
                     />
                 </span>
-                {dialog.editable && dialog.id === id && 
-                <button 
-                    className={isFilled(_giraffe) ? styles.saveBtn : styles.saveBtnDisable} 
-                    onClick={() => saveChanges()}
-                    // disabled={!isFilled(_giraffe)}
-                >
-                    Сохранить
-                </button>}
+                {dialog.editable && dialog.id === id && renderSaveBtn()}
             </div>
+        )
+    }
+
+    const renderSaveBtn = () => {
+        return(
+            <button 
+                className={isFilled(_giraffe) ? styles.saveBtn : styles.saveBtnDisable} 
+                onClick={() => saveChanges()}
+                // disabled={!isFilled(_giraffe)}
+            >
+                Сохранить
+            </button>
         )
     }
 
@@ -171,10 +173,8 @@ export const GiraffeCard = ({id, giraffe}) => {
     const toggleManage = () => {
         if (dialog.visible && dialog.id == id) {
             hideManageWindow(id)
-            // setNotEditable(id)
         } else {
             showManageWindow(id)
-            // setNotEditable(id)
         }
     }
 
@@ -182,7 +182,7 @@ export const GiraffeCard = ({id, giraffe}) => {
         return(
             <div className={styles.info}>
                 <div className={styles.manageMenu}>
-                    {dialog.visible && dialog.id == id && <ManageCard id={id} />} 
+                    {dialog.visible && dialog.id == id && <ManageCard id={id} giraffeId={giraffe._id} />} 
                     <button 
                         className={styles.manageMenuBtn} 
                         onClick={() => toggleManage()}

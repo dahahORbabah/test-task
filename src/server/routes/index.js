@@ -62,7 +62,7 @@ module.exports = (app) => {
                 const giraffe = await Giraffe.findById(req.params.id)
                 res.json(giraffe)
             } catch (e) {
-                res.sendStatus(500)
+                res.sendStatus(404)
             }
         })
         
@@ -77,7 +77,13 @@ module.exports = (app) => {
             }
         })
 
-        .delete((req, res) => {
-            
+        .delete(async (req, res) => {
+            try {
+                await Giraffe.deleteOne({_id: req.params.id})
+
+                res.sendStatus(204)
+            } catch (e) {
+                res.sendStatus(404)
+            }
         })
 }
