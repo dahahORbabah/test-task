@@ -26,7 +26,7 @@ export const Header = () => {
                     <li>
                         <img src='/images/giraffe_logo_mini'/>
                     </li>
-                    <li className={styles.selected}>hello@giraffe.com</li>
+                    <li className={styles.email}>hello@giraffe.com</li>
                 </ul>
             </div>
         )

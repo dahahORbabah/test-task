@@ -9,6 +9,7 @@
         background-color: $clr-light-grey
         border-radius: 18px
         height: 3px
+        margin-right: 40px
 
 .headerWrapper
     display: flex
@@ -31,5 +32,18 @@
         &:last-child
             margin-right: 0
 
+    .email
+        color: $clr-header
+
     .selected
         color: $clr-header
+        // FIX: underline
+        // display: flex
+        flex-direction: column      
+
+        &:after
+            content: ''
+            border-radius: 18px
+            width: 100%
+            background-color: $clr-green
+            height: 3px

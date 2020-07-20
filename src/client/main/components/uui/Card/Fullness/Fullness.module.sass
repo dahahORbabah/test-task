@@ -1,0 +1,74 @@
+@import 'variables'
+
+.mainWrapper
+    display: flex
+    flex-direction: column
+    background-color: $clr-base-green
+    color: $clr-white
+    border-radius: 28px
+    padding-left: 30px
+    padding-right: 16px
+    padding-top: 14px
+    padding-bottom: 50px
+    min-width: 500px
+    margin-right: 40px
+
+.close
+    background-color: transparent
+    color: $clr-white
+    font-weight: 900
+    font-size: $fs-28
+    line-height: 21px
+    cursor: pointer
+    align-self: flex-end
+
+.status
+    display: flex
+    margin-bottom: 16px
+
+.title
+    align-self: flex-end
+    font-weight: normal
+    font-size: $fs-50
+    line-height: 59px
+    text-align: center
+
+.subtitle
+    align-self: flex-end
+    font-weight: bold
+    font-size: $fs-20
+    line-height: 23px
+    text-align: center
+    margin-left: 9px
+    margin-bottom: 5px
+
+.trackContainer
+    display: flex
+    justify-content: space-between
+
+.barBackground
+    content: ''
+    background-color: $clr-dark-green
+    border-radius: 35px
+    // height: 100%
+    width: 70%
+
+.bar
+    content: ''
+    background-color: $clr-beige
+    border-radius: 35px
+    height: 10px
+    width: 80px
+
+.infoBackground
+    background-color: $clr-dark-green
+    border-radius: 35px
+    cursor: pointer
+    align-self: center
+
+    p
+        color: $clr-white
+        text-align: center
+        font-size: $fs-12
+        line-height: 14px
+        padding: 9px 18px

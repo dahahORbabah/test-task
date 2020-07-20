@@ -1,0 +1,87 @@
+@import 'variables'
+
+.tableWrapper
+    background-color: $clr-white
+    box-shadow: 0px 4px 15px $clr-shadow
+    border-radius: 28px
+    padding-left: 32px
+    padding-right: 33px
+
+.headerWrapper
+    display: flex
+    flex-direction: column
+
+    &::after
+        content: ''
+        height: 3px
+        background-color: $clr-light-grey
+        border-radius: 18px
+        margin-bottom: 8px
+
+.titleWrapper
+    display: flex
+    margin-top: 20px
+    justify-content: space-between
+    margin-bottom: 8px
+
+.title
+    font-weight: bold
+    font-size: $fs-16
+    line-height: 19px
+    color: $clr-dark-green
+
+.close
+    background-color: transparent
+    color: $clr-dark-green
+    font-weight: 900
+    font-size: $fs-24
+    line-height: 16px
+    cursor: pointer
+    align-self: flex-end
+
+.headWrapper
+    display: flex
+    flex-direction: column
+
+    &::before
+        content: ''
+        height: 1px
+        background-color: $clr-light-grey
+        border-radius: 18px
+        margin-top: 4px
+
+.row
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.headerItem
+    font-size: $fs-12
+    line-height: 14px
+    color: $clr-grey
+
+.bodyItem
+    color: $clr-dark-green
+    font-size: $fs-12
+    line-height: 14px
+    margin-right: 30px
+    margin-top: 12px
+    margin-bottom: 13px
+
+    &:last-child
+        margin-right: 0
+
+.status
+    color: $clr-dark-grey
+    padding: 6px 9px
+    border-radius: 5px
+    text-align: center
+
+.waiting
+    background-color: $clr-light-blue
+
+.realized
+    background-color: $clr-light-yellow
+
+.denied
+    background-color: $clr-light-red    
