@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { SHOW_MANAGE_WINDOW, HIDE_MANAGE_WINDOW, EDIT_GIRAFFE, SET_NOT_EDITABLE } from '../types'
+import { SHOW_MANAGE_WINDOW, HIDE_MANAGE_WINDOW, SET_EDITABLE, SET_NOT_EDITABLE } from '../types'
 import { DialogContext } from './dialogContext'
 import { dialogReducer } from './dialogReducer'
 
@@ -13,7 +13,7 @@ export const DialogState = ({children}) => {
 
     const showManageWindow = (id) => dispatch({type: SHOW_MANAGE_WINDOW, payload: id})
     const hideManageWindow = (id) => dispatch({type: HIDE_MANAGE_WINDOW, payload: id})
-    const setEditable = () => dispatch({type: EDIT_GIRAFFE})
+    const setEditable = () => dispatch({type: SET_EDITABLE})
     const setNotEditable = () => dispatch({type: SET_NOT_EDITABLE})
 
     return(

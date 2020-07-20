@@ -1,30 +1,19 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import styles from './Giraffes.module.sass'
 import { useHTTP } from '../../../../hooks/http.hook'
 import { GiraffeCard } from '../../uui/Card/GiraffeCard/GiraffeCard'
+import { GiraffesContext } from '../../../../context/giraffes/giraffesContext'
 
 export const GiraffesList = () => {
-    const { loading, request } = useHTTP()
-    const [giraffes, setGiraffes] = useState([{ 
-        name: '', 
-        // gender: '', weight: '', height: '', color: '', diet: '', character: '' 
-    }]) 
+    const { loading } = useHTTP()
+    const { fetchGiraffes, giraffes } = useContext(GiraffesContext)
 
-    //context
-    const getGiragges = useCallback(async () => {
-        try {
-            const data = await request('/api/giraffe', 'GET', null)
-            // console.log(data);
-            setGiraffes(data)
-        } catch (e) { }
-    }, [request])
-
-    // as ready
     useEffect(() => {
-        getGiragges()
-    }, [getGiragges])
+        fetchGiraffes()
+    }, [])
 
     if (!loading && giraffes) {
+        console.log(giraffes);
         return (
             <ul className={styles.giraffeListContainer}>
                 {giraffes.map((giraffe, index) => 

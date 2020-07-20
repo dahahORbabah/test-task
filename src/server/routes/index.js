@@ -66,8 +66,15 @@ module.exports = (app) => {
             }
         })
         
-        .put((req, res) => {
-            
+        .put(async (req, res) => {
+            try {
+                const giraffe = await Giraffe.findByIdAndUpdate(req.params.id, req.body)
+
+                await giraffe.save()
+                res.sendStatus(200)
+            } catch (e) {
+                res.sendStatus(404)
+            }
         })
 
         .delete((req, res) => {

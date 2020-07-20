@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHTTP } from '../../../../hooks/http.hook'
 import styles from './Giraffes.module.sass'
+import { GiraffesContext } from '../../../../context/giraffes/giraffesContext'
 
 export const AddGiraffe = () => {
-    const { loading, request } = useHTTP()
+    const { loading } = useHTTP()
+    const { giraffes } = useContext(GiraffesContext)
     const [form, setForm] = useState({
         name: '', sex: '', weight: '', height: '', color: '', diet: '', character: ''
     })
@@ -15,85 +17,8 @@ export const AddGiraffe = () => {
         })
     }
 
-    const addHandler = () => {
-        console.log('open new giraffe form')
-    }
-
-    const saveHandler = async () => {
-        try {
-            const data = await request('/api/giraffe', 'POST', {...form})
-            console.log('Giraffe', data);
-        } catch (e) { }
-    }
-
-    const renderAddGiraffeForm = () => {
-        return(
-            <div className={styles.formWrapper}>
-                {/* <input type='file' /> */}
-                <input
-                    id='name' 
-                    type='text' 
-                    placeholder='Имя'
-                    name='name'
-                    value={form.name}
-                    onChange={changeHandler}
-                />
-                {/* <input
-                    id='sex' 
-                    type='text' 
-                    placeholder='-'
-                    name='sex'
-                    value={form.sex}
-                    onChange={changeHandler}
-                />
-                <input
-                    id='weight' 
-                    type='text' 
-                    placeholder='-'
-                    name='weight'
-                    value={form.weight}
-                    onChange={changeHandler}
-                />
-                <input
-                    id='height' 
-                    type='text' 
-                    placeholder='-'
-                    name='height'
-                    value={form.height}
-                    onChange={changeHandler}
-                />
-                <input
-                    id='color' 
-                    type='text' 
-                    // placeholder='color'
-                    name='color'
-                    value={form.color}
-                    onChange={changeHandler}
-                />
-                <input 
-                    id='diet'
-                    type='text' 
-                    // placeholder='diet'
-                    name='diet'
-                    value={form.diet}
-                    onChange={changeHandler}
-                />
-                <input 
-                    id='character' 
-                    type='text' 
-                    // placeholder='character' 
-                    name='character'
-                    value={form.character}
-                    onChange={changeHandler}
-                /> */}
-                <button 
-                    onClick={saveHandler}
-                    disabled={loading}
-                >
-                    Сохранить
-                </button>
-            </div>
-        )
+    const openCardHandler = () => {        
+        console.log(giraffes);
     }
 
     return(
@@ -102,7 +27,7 @@ export const AddGiraffe = () => {
                 <p className={styles.title}>Жирафы</p>
                 <button
                     className={styles.addBtn} 
-                    onClick={addHandler}
+                    onClick={openCardHandler}
                     disabled={loading}
                 >
                     <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">

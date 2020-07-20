@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from 'react'
 import styles from './GiraffeCard.module.sass'
 import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import { ManageCard } from '../ManageCard/ManageCard'
+import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
 
 export const GiraffeCard = ({id, giraffe}) => {    
     const { showManageWindow, hideManageWindow, dialog, setNotEditable } = useContext(DialogContext)
+    const { addGiraffe, updateGiraffe } = useContext(GiraffesContext)
     const [_giraffe, setGiraffe] = useState({
         name: giraffe.name, sex: giraffe.sex, weight: giraffe.weight, height: giraffe.height, 
         color: giraffe.color, diet: giraffe.dialog, character: giraffe.character
@@ -36,9 +38,11 @@ export const GiraffeCard = ({id, giraffe}) => {
     }
 
     const saveChanges = () => {
-        console.log(_giraffe);
+        // console.log(giraffe._id);
+        // console.log(_giraffe);
         setNotEditable(id)
-        // sendFiles()
+        updateGiraffe(giraffe._id, _giraffe)
+        // console.log(giraffe);
     }
 
     const handleUpload = (event) => {
@@ -83,7 +87,7 @@ export const GiraffeCard = ({id, giraffe}) => {
                 <button 
                     className={isFilled(_giraffe) ? styles.saveBtn : styles.saveBtnDisable} 
                     onClick={() => saveChanges()}
-                    disabled={!isFilled(_giraffe)}
+                    // disabled={!isFilled(_giraffe)}
                 >
                     Сохранить
                 </button>}
