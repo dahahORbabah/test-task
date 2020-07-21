@@ -23,7 +23,7 @@ export const Updates = () => {
                     <li className={styles.bodyItem}>01 июня 2020</li>
                     <li className={styles.bodyItem}>Новый жираф</li>
                     <li className={styles.bodyItem}>Пряник</li>
-                    <li className={styles.bodyItem + ' ' + styles.status + ' ' + styles.waiting}>Ожидается</li>
+                    <li className={`${styles.bodyItem} ${styles.status} ${styles.waiting}`}>Ожидается</li>
                 </ul>
             </div>
         </div>

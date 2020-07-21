@@ -14,6 +14,9 @@ const upload = multer({ storage: storage })
 module.exports = (app) => {
     // Upload image
     app.post('/uploadImage', upload.single('file'), async (req, res) => {
+
+        console.log(req);
+
         if (req.file) {
             res.send({ success: true })
         } else {

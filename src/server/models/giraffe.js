@@ -9,7 +9,7 @@ const GiraffeSchema = new Schema({
     color: { type: String, required: false },
     diet: { type: String, required: false },
     temper: { type: String, required: false },
-    // image: { type: String, required: true }
+    image: { type: String, required: true }
 })
 
 module.exports = mongoose.model('giraffe', GiraffeSchema)
