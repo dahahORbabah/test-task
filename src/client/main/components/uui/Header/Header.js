@@ -5,10 +5,10 @@ export const Header = () => {
     const renderContent = () => {
         return(
             <div className={styles.headerWrapper}>
-                <ul className={styles.headerContainer}>
-                    <li className={styles.selected}>Вольер 1</li>
-                    <li>Вольер 2</li>
-                    <li>Вольер 3</li>
+                <ul className={styles.headerBox}>
+                    <li className={`${styles.box} ${styles.selected}`}>Вольер 1</li>
+                    <li className={styles.box}>Вольер 2</li>
+                    <li className={styles.box}>Вольер 3</li>
                     <li>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="20" height="20" rx="10" fill="#D9D9D9"/>

@@ -16,34 +16,45 @@
     justify-content: space-between
     margin-top: 29px
 
+.headerBox
+    display: flex
+    align-items: flex-end
+    
+    .box
+        // color: $clr-header
+        display: flex
+        flex-direction: column 
+
+        &:after            
+            position: relative
+            bottom: -3px
+            content: ''
+            border-radius: 18px
+            width: 100%
+            background-color: $clr-light-grey   
+            height: 3px
+
+    .selected
+        color: $clr-header 
+
+        &::after
+            background-color: $clr-green
+
 .headerContainer
     display: flex
     align-items: center
     padding-right: 40px
 
-    li
-        list-style: none
-        color: $clr-light-grey
-        font-weight: 300
-        font-size: $fs-16
-        line-height: 19px
-        margin-right: 19px
-
-        &:last-child
-            margin-right: 0
-
     .email
         color: $clr-header
 
-    .selected
-        color: $clr-header
-        // FIX: underline
-        // display: flex
-        flex-direction: column      
+li
+    list-style: none
+    color: $clr-light-grey
+    font-weight: 300
+    font-size: $fs-16
+    line-height: 19px
+    margin-right: 19px
 
-        &:after
-            content: ''
-            border-radius: 18px
-            width: 100%
-            background-color: $clr-green
-            height: 3px
+    &:last-child
+        margin-right: 0
