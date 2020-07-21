@@ -19,16 +19,17 @@ export const GiraffesState = ({children}) => {
     }
     
     const addGiraffe = async (giraffe) => {
+        console.log('POST G', giraffe);
         try {
             const res = await axios.post('/api/giraffe', giraffe)
             const payload = {
                 ...giraffe,
-                id: res.data.id
+                _id: res.data._id
             }
 
             dispatch({type: ADD_GIRAFFE, payload})
 
-            fetchGiraffes()
+            // fetchGiraffes()
         } catch (e) {
             throw new Error(e.message)
         }

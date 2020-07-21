@@ -3,18 +3,18 @@ import styles from './GiraffeCard.module.sass'
 import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import { ManageCard } from '../ManageCard/ManageCard'
 import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
+import axios from 'axios'
 
 export const GiraffeCard = ({giraffe}) => {    
     const { showManageWindow, hideManageWindow, dialog, setNotEditable } = useContext(DialogContext)
-    const { addGiraffe, updateGiraffe, visible, hideNewForm } = useContext(GiraffesContext)
+    const { addGiraffe, updateGiraffe, visible, hideNewForm, fetchGiraffes } = useContext(GiraffesContext)
     const [_giraffe, setGiraffe] = useState({
         name: giraffe.name, sex: giraffe.sex, weight: giraffe.weight, height: giraffe.height, 
-        color: giraffe.color, diet: giraffe.dialog, character: giraffe.character, image: giraffe.image
+        color: giraffe.color, diet: giraffe.diet, temper: giraffe.temper, image: giraffe.image
     })
+    const [file, setFile] = useState()
 
     const changeHandler = (event) => {
-        // console.log(event.target.name);
-        // console.log(event.target.value);
         setGiraffe({
             ..._giraffe,
             [event.target.name]: event.target.value
@@ -22,27 +22,26 @@ export const GiraffeCard = ({giraffe}) => {
     }
 
     const sendFile = async (event) => {
-        // console.log(file);
+        let formData = new FormData()
+        formData.append('file', file)
 
-        // let formData = new FormData()
-        // formData.append('file', file)
+        const { data } = await axios.post('/uploadImage', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
 
-        // console.log(formData);
-        // const { data } = await axios.post('/uploadImage', formData, {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // })
-        // console.log(data);
+        console.log(data);
 
-        // let res = await fetch('/uploadImage', {
-        //     method: 'POST',
-        //     body: new FormData(`giraffe_${giraffe._id}`)
-        // })
+        if (data.success) {
+            console.log('filename', file.name);
 
-        // let result = await res.response.json()
-
-        // console.log(result);
+            // setGiraffe({
+            //     ..._giraffe,
+            //     image: file.name
+            // })
+            // setFile()
+        }
     }
 
     const isFilled = (giraffe) => {
@@ -56,41 +55,39 @@ export const GiraffeCard = ({giraffe}) => {
             addGiraffe(_giraffe)
             hideNewForm()
         } else {
+            console.log(_giraffe);
             updateGiraffe(giraffe._id, _giraffe)
         }
 
-        sendFile(event)
+        if (file) {
+            sendFile(event)
+            setFile()
+        }
+
+        fetchGiraffes()
     }
 
     const handleUpload = (event) => {
-        event.preventDefault()
-        
+        event.preventDefault()        
         if (event.target.files.length === 0 || event.target.files == undefined) return
-
-        // console.log(event.target.name);
-        // console.log(event.target.files[0]);
-
-        const name = event.target.name
-        const fileName = event.target.files[0]
-
-        // console.log(name);
-        // console.log(fileName);
-
+        setFile(event.target.files[0])
         setGiraffe({
             ..._giraffe,
-            [name]: fileName
+            image: event.target.files[0].name
         })
-
-        // sendFile(fileName)
     }
 
     const renderCharacter = () => {
+        const color = _giraffe.color 
+        const diet = _giraffe.diet 
+        const temper = _giraffe.temper
+
         return(
             <div className={styles.charContainer}>
                 <span className={styles.param}>Цвет:
                     <input 
                         name='color' 
-                        value={_giraffe.color} 
+                        value={color} 
                         onChange={changeHandler} 
                         disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
@@ -100,7 +97,7 @@ export const GiraffeCard = ({giraffe}) => {
                 <span className={styles.param}>Диета:
                     <input 
                         name='diet' 
-                        value={_giraffe.diet} 
+                        value={diet} 
                         onChange={changeHandler} 
                         disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
@@ -109,8 +106,8 @@ export const GiraffeCard = ({giraffe}) => {
                 </span>
                 <span className={styles.param}>Характер:
                     <input 
-                        name='character' 
-                        value={_giraffe.character} 
+                        name='temper' 
+                        value={temper} 
                         onChange={changeHandler} 
                         disabled={!dialog.editable || dialog.id !== giraffe._id}
                         autoComplete='off'
@@ -182,6 +179,7 @@ export const GiraffeCard = ({giraffe}) => {
     }
 
     const renderMockImg = () => {
+        // console.log(`mockImg_${_giraffe.name}`, _giraffe.image);
         return(
             <svg width="145" height="145" viewBox="0 0 145 145" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="145" height="145" rx="72.5" fill="white"/>
@@ -191,11 +189,18 @@ export const GiraffeCard = ({giraffe}) => {
     }
 
     const renderGiraffeImg = () => {
-        return(
-            <div>
-                {/* <img src='/uploads/giraffe_logo_mini' /> */}
-            </div>
-        )
+        console.log(`img_${_giraffe.name}`, _giraffe.image);
+        if (file) console.log('uploaded', file.name)
+        if (_giraffe.image !== undefined) {
+            return(
+                <div>
+                    <img 
+                        className={styles.image} 
+                        src={`/uploads/${_giraffe.image}`} 
+                    />
+                </div>
+            )
+        } else return renderMockImg()
     }
 
     const toggleManage = () => {
@@ -221,15 +226,16 @@ export const GiraffeCard = ({giraffe}) => {
                         </svg>
                     </button>
                 </div>
-                <label className={styles.imgWrapper} htmlFor='image'>
-                    {_giraffe.image === undefined ? renderMockImg() : renderGiraffeImg()}
+                <label className={styles.imgWrapper} htmlFor={`${giraffe._id}_image`}>
+                    {file !== undefined || _giraffe.image ? renderGiraffeImg() : renderMockImg()}
                     <input
-                        id='image'
+                        id={`${giraffe._id}_image`}
                         hidden 
                         type='file' 
                         accept='image/*'
                         name='image'
                         onChange={handleUpload}
+                        disabled={!dialog.editable || dialog.id !== giraffe._id}
                     />    
                 </label>
                 <input 

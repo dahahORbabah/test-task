@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
     name: 'Egor',
     weight: 800,
     sex: 'M',
