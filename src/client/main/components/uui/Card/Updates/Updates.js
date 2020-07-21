@@ -26,6 +26,38 @@ export const Updates = () => {
                     <li className={`${styles.bodyItem} ${styles.status} ${styles.waiting}`}>Ожидается</li>
                 </ul>
             </div>
+            <div className={styles.headWrapper}>
+                <ul className={styles.row}>
+                    <li className={styles.bodyItem}>20 апр 2020</li>
+                    <li className={styles.bodyItem}>Новый жираф</li>
+                    <li className={styles.bodyItem}>Матильда</li>
+                    <li className={`${styles.bodyItem} ${styles.status} ${styles.realized}`}>Выполнено</li>
+                </ul>
+            </div>
+            <div className={styles.headWrapper}>
+                <ul className={styles.row}>
+                    <li className={styles.bodyItem}>15 апр 2020</li>
+                    <li className={styles.bodyItem}>Редактировать</li>
+                    <li className={styles.bodyItem}>Шнур</li>
+                    <li className={`${styles.bodyItem} ${styles.status} ${styles.notCommit}`}>Не подтвержден</li>
+                </ul>
+            </div>
+            <div className={styles.headWrapper}>
+                <ul className={styles.row}>
+                    <li className={styles.bodyItem}>05 апр 2020</li>
+                    <li className={styles.bodyItem}>Удалить</li>
+                    <li className={styles.bodyItem}>Ракета</li>
+                    <li className={`${styles.bodyItem} ${styles.status} ${styles.realized}`}>Выполнено</li>
+                </ul>
+            </div>
+            <div className={styles.headWrapper}>
+                <ul className={styles.row}>
+                    <li className={styles.bodyItem}>04 апр 2020</li>
+                    <li className={styles.bodyItem}>Перевод</li>
+                    <li className={styles.bodyItem}>Леонид</li>
+                    <li className={`${styles.bodyItem} ${styles.status} ${styles.denied}`}>Отклонено</li>
+                </ul>
+            </div>
         </div>
     )
 }
