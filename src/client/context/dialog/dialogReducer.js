@@ -19,7 +19,5 @@ const handlers = {
 
 export const dialogReducer = (state, action) => {
     const handle = handlers[action.type] || handlers.DEFAULT
-    // console.log(state);
-    // console.log(action.type);
     return handle(state, action)
 }

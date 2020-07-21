@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import styles from './ManageCard.module.sass'
 import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
@@ -20,7 +20,7 @@ export const ManageCard = ({id}) => {
 
     return(
         <ul className={styles.container}>
-            <li>
+            <li className={styles.manageMenuItem}>
                 <button 
                     className={styles.item}
                     onClick={() => editGiraffe()}
@@ -31,7 +31,7 @@ export const ManageCard = ({id}) => {
                     <p className={styles.itemText}>Редактировать</p>
                 </button>
             </li>
-            <li>
+            <li className={styles.manageMenuItem}>
                 <button 
                     className={styles.item}
                     onClick={() => deleteGiraffe()}

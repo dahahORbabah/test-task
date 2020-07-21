@@ -35,7 +35,6 @@ export const Header = () => {
     return(
         <section className={styles.mainWrapper}>
             {renderContent()}
-            {/* {renderUnderline()} */}
         </section>
     )
 }

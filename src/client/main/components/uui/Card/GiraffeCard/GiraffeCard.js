@@ -1,8 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './GiraffeCard.module.sass'
 import { DialogContext } from '../../../../../context/dialog/dialogContext'
 import { ManageCard } from '../ManageCard/ManageCard'
 import { GiraffesContext } from '../../../../../context/giraffes/giraffesContext'
+import { MockImg } from '../../Mock/MockImg/MockImg'
 import axios from 'axios'
 
 export const GiraffeCard = ({giraffe}) => {    
@@ -25,23 +26,11 @@ export const GiraffeCard = ({giraffe}) => {
         let formData = new FormData()
         formData.append('file', file)
 
-        const { data } = await axios.post('/uploadImage', formData, {
+        await axios.post('/uploadImage', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-
-        console.log(data);
-
-        if (data.success) {
-            console.log('filename', file.name);
-
-            // setGiraffe({
-            //     ..._giraffe,
-            //     image: file.name
-            // })
-            // setFile()
-        }
     }
 
     const isFilled = (giraffe) => {
@@ -55,7 +44,6 @@ export const GiraffeCard = ({giraffe}) => {
             addGiraffe(_giraffe)
             hideNewForm()
         } else {
-            console.log(_giraffe);
             updateGiraffe(giraffe._id, _giraffe)
         }
 
@@ -124,7 +112,7 @@ export const GiraffeCard = ({giraffe}) => {
             <button 
                 className={isFilled(_giraffe) ? styles.saveBtn : styles.saveBtnDisable} 
                 onClick={saveChanges}
-                // disabled={!isFilled(_giraffe)}
+                disabled={!isFilled(_giraffe)}
             >
                 Сохранить
             </button>
@@ -178,25 +166,18 @@ export const GiraffeCard = ({giraffe}) => {
         )
     }
 
-    const renderMockImg = () => {
-        // console.log(`mockImg_${_giraffe.name}`, _giraffe.image);
-        return(
-            <svg width="145" height="145" viewBox="0 0 145 145" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="145" height="145" rx="72.5" fill="white"/>
-                <path d="M97 61.5V88.5C97 89.75 96.5625 90.8125 95.6875 91.6875C94.8125 92.5625 93.75 93 92.5 93H53.5C52.25 93 51.1875 92.5625 50.3125 91.6875C49.4375 90.8125 49 89.75 49 88.5V61.5C49 60.25 49.4375 59.1875 50.3125 58.3125C51.1875 57.4375 52.25 57 53.5 57H61.75L62.875 53.9062C63.125 53.3438 63.4375 52.8438 63.8125 52.4062C64.25 51.9688 64.75 51.625 65.3125 51.375C65.875 51.125 66.4688 51 67.0938 51H78.9062C79.8438 51 80.6875 51.2812 81.4375 51.8438C82.1875 52.3438 82.75 53.0312 83.125 53.9062L84.25 57H92.5C93.75 57 94.8125 57.4375 95.6875 58.3125C96.5625 59.1875 97 60.25 97 61.5ZM80.9688 82.9688C83.1562 80.7812 84.25 78.125 84.25 75C84.25 71.875 83.1562 69.2188 80.9688 67.0312C78.7812 64.8438 76.125 63.75 73 63.75C69.875 63.75 67.2188 64.8438 65.0312 67.0312C62.8438 69.2188 61.75 71.875 61.75 75C61.75 78.125 62.8438 80.7812 65.0312 82.9688C67.2188 85.1562 69.875 86.25 73 86.25C76.125 86.25 78.7812 85.1562 80.9688 82.9688ZM78.8125 69.1875C80.4375 70.8125 81.25 72.75 81.25 75C81.25 77.25 80.4375 79.1875 78.8125 80.8125C77.1875 82.4375 75.25 83.25 73 83.25C70.75 83.25 68.8125 82.4375 67.1875 80.8125C65.5625 79.1875 64.75 77.25 64.75 75C64.75 72.75 65.5625 70.8125 67.1875 69.1875C68.8125 67.5625 70.75 66.75 73 66.75C75.25 66.75 77.1875 67.5625 78.8125 69.1875Z" fill="#D9D9D9"/>
-            </svg>
-        )
+    const handlerErr = (e) => {
+        e.target.src = `https://via.placeholder.com/145x145.png?text=${_giraffe.name}`
     }
 
     const renderGiraffeImg = () => {
-        console.log(`img_${_giraffe.name}`, _giraffe.image);
-        if (file) console.log('uploaded', file.name)
         if (_giraffe.image !== undefined) {
             return(
                 <div>
                     <img 
                         className={styles.image} 
-                        src={`/uploads/${_giraffe.image}`} 
+                        src={`/uploads/${_giraffe.image}`}
+                        onError={handlerErr} 
                     />
                 </div>
             )
@@ -227,7 +208,7 @@ export const GiraffeCard = ({giraffe}) => {
                     </button>
                 </div>
                 <label className={styles.imgWrapper} htmlFor={`${giraffe._id}_image`}>
-                    {file !== undefined || _giraffe.image ? renderGiraffeImg() : renderMockImg()}
+                    {file !== undefined || _giraffe.image ? renderGiraffeImg() : <MockImg />}
                     <input
                         id={`${giraffe._id}_image`}
                         hidden 

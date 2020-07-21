@@ -19,9 +19,12 @@ export const GiraffesState = ({children}) => {
     }
     
     const addGiraffe = async (giraffe) => {
-        console.log('POST G', giraffe);
         try {
-            const res = await axios.post('/api/giraffe', giraffe)
+            const res = await axios.post('/api/giraffe', giraffe, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             const payload = {
                 ...giraffe,
                 _id: res.data._id
