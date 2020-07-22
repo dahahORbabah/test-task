@@ -102,7 +102,12 @@ export const GiraffeCard = ({giraffe}) => {
                         placeholder=''
                     />
                 </span>
-                {dialog.id === giraffe._id && dialog.editable && renderSaveBtn()}
+                {console.log(dialog.id)}
+                {console.log(giraffe._id)}
+                {console.log(dialog.editable)}id
+                {dialog.id === giraffe._id && dialog.editable 
+                    ?   renderSaveBtn()
+                    :   giraffe._id == undefined ? renderSaveBtn() : null}
             </div>
         )
     }

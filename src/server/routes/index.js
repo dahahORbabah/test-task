@@ -27,7 +27,7 @@ module.exports = (app) => {
             const giraffe = new Giraffe({ name, weight, sex, height, color, diet, temper, image })
 
             await giraffe.save()
-            res.json(200, giraffe)
+            res.status(200).json(giraffe)
         } catch (e) {
             res.sendStatus(500)
         }
@@ -49,7 +49,7 @@ module.exports = (app) => {
         try {
             const giraffe = await Giraffe.findById(req.params.id)
 
-            res.json(200, giraffe)
+            res.status(200).json(giraffe)
         } catch (e) {
             res.sendStatus(404)
         }

@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react'
-import { useHTTP } from '../../../../hooks/http.hook'
 import styles from './Giraffes.module.sass'
 import { GiraffesContext } from '../../../../context/giraffes/giraffesContext'
 
 export const AddGiraffe = () => {
-    const { loading } = useHTTP()
     const { showNewForm } = useContext(GiraffesContext)
 
     const openCardHandler = () => {   
@@ -18,7 +16,6 @@ export const AddGiraffe = () => {
                 <button
                     className={styles.addBtn} 
                     onClick={() => openCardHandler()}
-                    disabled={loading}
                 >
                     <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="37" height="37" rx="18.5" fill="#668663"/>

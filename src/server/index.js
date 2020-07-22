@@ -9,7 +9,7 @@ const DB_URL = 'mongodb://127.0.0.1:27017/light-tech-test-db';
 // const https = require('https');
 // const fs = require('fs');
 const mongoose = require('mongoose');
-const Giraffe = require('./models/giraffe');
+// const Giraffe = require('./models/giraffe');
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
     next()
 })
 app.use(bodyParser.json());
-app.use('/images', express.static(path.join(__dirname, '../../dist/images')));
+app.use('/images', express.static(path.join(__dirname, '../../images')));
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 require('./routes')(app);
